@@ -1,0 +1,267 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        body{
+            background-image: url("{% static 'imgs/header1.jpg' %}")
+        }
+    </style>
+                            <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+         <style>
+      .my{
+      display: flex;
+      justify-content: center;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 15px;
+      padding-top: 150px;
+      width: 500px;
+      }
+     
+      input[type=text], input[type=password] {
+      width: 100%;
+      padding: 16px 8px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      }
+      button {
+      background-color: #8ebf42;
+      color: white;
+      padding: 14px 0;
+      margin: 10px 0;
+      border: none;
+      cursor: grabbing;
+      width: 100%;
+      }
+      h1 {
+      text-align:center;
+      fone-size:18;
+      }
+      button:hover {
+      opacity: 0.8;
+      }
+      .formcontainer {
+      text-align: left;
+      margin: 24px 50px 12px;
+      }
+      .container {
+      padding: 16px 0;
+      text-align:left;
+      }
+      span.psw {
+      float: right;
+      padding-top: 0;
+      padding-right: 15px;c\
+      }
+      /* Change styles for span on extra small screens */
+      @media screen and (max-width: 300px) {
+      span.psw {
+      display: block;
+      float: none;
+      }
+    </style>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Go Tours</title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+    </head>
+<body>
+        
+        <nav class="navbar navbar-expand-lg navbar-light text-capitalize">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'imgs/logo.png' %}" alt="#" /></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#show-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="show-menu">
+                    <li class="navbar-nav ml-auto">
+
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                       {% if request.session.email %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">Destinations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'mytrip_view' %}">My Trip</a>
+                        </li>
+                        
+                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact' %}">contact us</a>
+                        </li>
+                        
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'agency' %}">travel agency</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'service' %}">Service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact' %}">contact us</a>
+                        </li>  
+                    {% endif %}      
+                     {% if request.session.email %}
+                         <li class="nav-item">
+                                <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout &nbsp;&nbsp;&nbsp;<span style=" color: #E991FC"><i class="far fa-user"></i>&nbsp;&nbsp;&nbsp;{{request.session.fname}}</span></a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'singup' %}">Sign Up</a>
+                        </li>
+                    {% endif %}
+                </div>
+                
+            </div>
+        </nav>
+        <br><br><br><br><br>
+
+        <div class="agency" id="agency">
+            <div >
+                <div class="container">
+                    <div>
+                        <img src="{% static 'imgs/airplane.png' %}">
+                        <div>
+                            <img src="{% static 'imgs/pic1.png' %}">
+                            <h2 class="text-center text-uppercase">Enjoy <br> All <br> World</h2>
+                        </div>
+                        <img src="{% static 'imgs/airplane.png' %}">
+                    </div>
+                    <p class="text-center" style="color:white;">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look likeIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as o</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="statistics text-capitalize text-center font-weight-bold">
+            <div class="container">
+              <center>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <i class="fas fa-umbrella-beach fa-3x"></i>
+                        <h3 style="color:white;">425</h3>
+                        <p>Tourists</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <i class="fas fa-birthday-cake fa-3x"></i>
+                        <h3 style="color:white;">125</h3>
+                        <p>years</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <i class="fa fa-home fa-3x"></i>
+                        <h3 style="color:white;">325</h3>
+                        <p>cottages</p>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <i class="fas fa-glass-cheers fa-3x"></i>
+                        <h3 style="color:white;">120</h3>
+                        <p>restaurants</p>
+                    </div>
+                </div>
+                </center>
+            </div>
+        </div>
+       
+
+    <footer>
+            <div class="container">
+                <ul>
+                    <li><a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="https://twitter.com/"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://in.linkedin.com/"><i class="fab fa-linkedin-in"></i></a></li>
+                    <li><a href="https://mail.google.com/"><i class="fab fa-google-plus-g"></i></a></li>
+                </ul>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="item">
+                            <h4 class="text-uppercase">Contact us</h4>
+                            <p class="address">
+                                New Ranip,<br>
+                                Ahmedabad, Gujarat<br>
+                                +70 1654 3655
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="item">
+                            <h4 class="text-uppercase">additional links</h4>
+                            <ul>
+                                <li><a href="#">About us</a></li>
+                                <li><a href="#">Terms and conditions</a></li>
+                                <li><a href="#">Privacy policy</a></li>
+                                <li><a href="#">News</a></li>
+                                <li><a href="#">Contact us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="item date">
+                            <h4 class="text-uppercase">recent posts</h4>
+                            <p><a href="#">01/01/2021</a></p>
+                            <p><a href="#">02/01/2021</a></p>
+                            <p><a href="#">03/01/2021</a></p>
+                            <p><a href="#">04/01/2021</a></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="item">
+                            <h4 class="text-uppercase">newsletter</h4>
+                            <form>
+                                {% csrf_token %}
+                                <input type="text" placeholder="Name">
+                                <input type="email" placeholder="Email">
+                                <input type="submit" value="Submit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright text-center">
+                <p>Copyright 2021  Design by <a href="https://html.design">Rajeev Prajapati</a></p>
+            </div>
+        </footer>
+        
+        <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script>
+            $(function () {
+                
+                'use strict';
+                
+                var winH = $(window).height();
+                
+                $('header').height(winH);  
+                
+                $('header .container > div').css('top', (winH / 2) - ( $('header .container > div').height() / 2));
+                
+                $('.navbar ul li a.search').on('click', function (e) {
+                    e.preventDefault();
+                });
+                $('.navbar a.search').on('click', function () {
+                    $('.navbar form').fadeToggle();
+                });
+                
+                $('.navbar ul.navbar-nav li a').on('click', function (e) {
+                    
+                    var getAttr = $(this).attr('href');
+                    
+                    e.preventDefault();
+                    $('html').animate({scrollTop: $(getAttr).offset().top}, 1000);
+                });
+            })
+        </script>
+
+</body>
+</html>

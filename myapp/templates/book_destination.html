@@ -1,0 +1,311 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Go Tours</title>
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <style type="text/css">
+        body{
+            background-image: url("{% static 'imgs/header1.jpg' %}");
+        }
+        .checked {
+              color: orange;
+            }
+    </style>
+                            <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+         <style>
+      .my{
+      display: flex;
+      justify-content: center;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 15px;
+    
+      width: 500px;
+      }
+     
+      input[type=text], input[type=password] {
+      width: 100%;
+      padding: 16px 8px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      }
+      button {
+      background-color: #8ebf42;
+      color: white;
+      padding: 14px 0;
+      margin: 10px 0;
+      border: none;
+      cursor: grabbing;
+      width: 100%;
+      }
+      h1 {
+      text-align:center;
+      fone-size:18;
+      }
+      button:hover {
+      opacity: 0.8;
+      }
+      .formcontainer {
+      text-align: left;
+      margin: 24px 50px 12px;
+      }
+      .container {
+      padding: 16px 0;
+      text-align:left;
+      }
+      span.psw {
+      float: right;
+      padding-top: 0;
+      padding-right: 15px;c\
+      }
+      /* Change styles for span on extra small screens */
+      @media screen and (max-width: 300px) {
+      span.psw {
+      display: block;
+      float: none;
+      }
+    </style>
+    <script type="text/javascript">
+        $(function(){
+    var dtToday = new Date();
+    
+    var month = dtToday.getMonth() + 1;
+    var day = dtToday.getDate();
+    var year = dtToday.getFullYear();
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+    
+    var maxDate = year + '-' + month + '-' + day;
+    
+    $('#trip_date').attr('min', maxDate);
+});
+    </script>
+        
+    </head>
+<body>
+        
+        <nav class="navbar navbar-expand-lg navbar-light text-capitalize">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}"><img src="{% static 'imgs/logo.png' %}" alt="#" /></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#show-menu" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="show-menu">
+                    <li class="navbar-nav ml-auto">
+
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'index' %}">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                        {% if request.session.email %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'about' %}">Destinations</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'mytrip_view' %}">My Trip</a>
+                        </li>
+                       
+                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact' %}">contact us</a>
+                        </li>
+                        
+                        {% else %}
+                         <li class="nav-item">
+                            <a class="nav-link" href="{% url 'agency' %}">travel agency</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'service' %}">Service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact' %}">contact us</a>
+                        </li>  
+                    {% endif %}      
+                     {% if request.session.email %}
+                     <li class="nav-item">
+                            <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'logout' %}">Logout &nbsp;&nbsp;&nbsp;<span style=" color: #E991FC"><i class="far fa-user"></i>&nbsp;&nbsp;&nbsp;{{request.session.fname}}</span></a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'singup' %}">Sign Up</a>
+                        </li>
+                    {% endif %}
+                </div>
+                
+            </div>
+        </nav>
+        <br><br><br><br><br>
+        <a href="{% url 'book_destination' pk=destinations.pk %}"><h2 style="color:white;"><center><span style="color: #E991FC; font-size: 45px;">Book</span>Trip</center></h2></a>
+        <center>
+            <p style="color: white;">
+        {% if msg %}
+            {{msg}}
+        {% endif %}
+        </p>
+        </center>
+        <center>
+            <div class="my">
+                        <form name="book_destination" method="post" action="{% url 'book_destination' pk=destinations.pk %}" style="color: white;">
+                            {% csrf_token %}
+                          <div class="formcontainer">
+                          <div class="container">
+                            <tr>
+                                <td>Name</td>
+                                <td><input type="text" id="fullname" class="form-control" value="{{tourist.fname}}" readonly="readonly" style="height: 8px;"></td>  
+                            <tr>
+                                <td>Email</td>
+                                <td><input type="text" id="fullname" class="form-control" value="{{tourist.email}}" readonly="readonly" style="height: 8px;"></td>
+                            </tr>
+                            <tr>
+                                <td>Mobile</td>
+                                <td><input type="text" id="fullname" class="form-control" value="{{tourist.mobile}}" required="required" style="height: 8px;"></td>
+                            </tr>
+
+                                                        <label for="fullname">Adult</label>
+                                                        <td>
+                                                            <select name="adult" class="form-control"required="required" >
+                                                                <option></option>
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option>3</option>
+                                                                <option>4</option>
+                                                                <option>5</option>
+                                                                <option>7</option>
+                                                                <option>8</option>
+                                                                <option>9</option>    
+                                                                <option>10</option>
+                                                                <option>11</option>
+                                                                <option>12</option>
+                                                                <option>13</option>
+                                                                <option>14</option>
+                                                                <option>15</option>
+                                                            </select>
+                                                        </td>
+                            <tr>
+                                <td>Price</td>
+                                <td><input type="text" id="fullname" class="form-control" value="{{destinations.price}}" readonly="readonly" style="height: 8px;"></td>
+                            </tr>                            
+                            <tr>
+                                <td>Destination</td>
+                                <td><input type="text" id="fullname" class="form-control" value="{{destinations.from_to}}" readonly="readonly" style="height: 8px;"></td>
+                            </tr>
+                            <tr>
+                                <td>Select Date</td>
+                                <td><input type="date" name="trip_date" id="trip_date" class="form-control" required="required"></td>  
+                            <tr>                      
+                         </div> 
+                            <div class="col-md-12">
+                                <input type="submit" class="btn btn-danger btn-block" value="Book">
+                        </form>
+                      </div>
+        </center>
+
+
+    <br><br>
+                    
+    <footer>
+            <div class="container">
+                <ul>
+                    <li><a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a></li>
+                    <li><a href="https://twitter.com/"><i class="fab fa-twitter"></i></a></li>
+                    <li><a href="https://in.linkedin.com/"><i class="fab fa-linkedin-in"></i></a></li>
+                    <li><a href="https://mail.google.com/"><i class="fab fa-google-plus-g"></i></a></li>
+                </ul>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="item">
+                            <h4 class="text-uppercase">Contact us</h4>
+                            <p class="address">
+                                New Ranip,<br>
+                                Ahmedabad, Gujarat<br>
+                                +70 1654 3655
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="item">
+                            <h4 class="text-uppercase">additional links</h4>
+                            <ul>
+                                <li><a href="#">About us</a></li>
+                                <li><a href="#">Terms and conditions</a></li>
+                                <li><a href="#">Privacy policy</a></li>
+                                <li><a href="#">News</a></li>
+                                <li><a href="#">Contact us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="item date">
+                            <h4 class="text-uppercase">recent posts</h4>
+                           <p><a href="#">01/01/2021</a></p>
+                            <p><a href="#">02/01/2021</a></p>
+                            <p><a href="#">03/01/2021</a></p>
+                            <p><a href="#">04/01/2021</a></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="item">
+                            <h4 class="text-uppercase">newsletter</h4>
+                            <form>
+                                {% csrf_token %}
+                                <input type="text" placeholder="Name">
+                                <input type="email" placeholder="Email">
+                                <input type="submit" value="Submit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright text-center">
+                <p>Copyright 2021  Design by <a href="https://html.design">Rajeev Prajapati</a></p>
+            </div>
+        </footer>
+        
+        <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script>
+            $(function () {
+                
+                'use strict';
+                
+                var winH = $(window).height();
+                
+                $('header').height(winH);  
+                
+                $('header .container > div').css('top', (winH / 2) - ( $('header .container > div').height() / 2));
+                
+                $('.navbar ul li a.search').on('click', function (e) {
+                    e.preventDefault();
+                });
+                $('.navbar a.search').on('click', function () {
+                    $('.navbar form').fadeToggle();
+                });
+                
+                $('.navbar ul.navbar-nav li a').on('click', function (e) {
+                    
+                    var getAttr = $(this).attr('href');
+                    
+                    e.preventDefault();
+                    $('html').animate({scrollTop: $(getAttr).offset().top}, 1000);
+                });
+            })
+        </script>
+
+</body>
+</html>
